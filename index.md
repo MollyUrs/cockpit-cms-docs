@@ -1,37 +1,21 @@
-## Welcome to GitHub Pages
+# Cockpit CMS Docs (Unofficial)
+I love using Cockpit CMS, but the official documentation isn't great, especially for the PHP SDK that's built in. In fact there's no mention of it at all in the docs. This documentation will help you understand how to use the built in SDK. Feel free to contribute.
 
-You can use the [editor on GitHub](https://github.com/MollyUrs/cockpit-cms-docs/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Introduction
+To get started, it's quite simple. All we need is to require the `bootstrap.php` file located in the root of the cockpit admin directory.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+    <?php 
+	require 'admin/bootstrap.php';
+	?>
+Next, I'll show you some very basic but fundamental ways of accessing singleton and collection data using this SDK that we just required.
 
-### Markdown
+	<?php
+	require 'admin/bootstrap.php';
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+	// Finds all entries in the 'blog' collection.
+	$blog = cockpit('collections')->find('blog');
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/MollyUrs/cockpit-cms-docs/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+	// Gets singleton data from 'settings' singleton.
+	$settings = cockpit('singletons')->getData('settings');
+	
+The data returned is in the form of an associative array. It's returned in the same way that the HTTP API would return data (after using json_decode). As you can see using this SDK is far quicker than using the HTTP API. I haven't ran any benchmarks but I can fairly confidently only assume that its more performant.
